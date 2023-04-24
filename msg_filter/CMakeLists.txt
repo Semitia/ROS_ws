@@ -123,7 +123,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+  include
   ${catkin_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
 )
@@ -145,7 +145,9 @@ add_executable(mypub src/mypub.cpp)
 add_executable(filter_demo src/filter_demo.cpp)
 add_executable(recoder src/recoder.cpp)
 add_executable(newKey_demo src/newKey_demo.cpp)
-add_executable(writeCSV_demo src/writeCSV_demo.cpp)
+# add_executable(writeCSV_demo src/writeCSV_demo.cpp)
+add_executable(serial_translator src/serial_translator.cpp)
+
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -160,7 +162,8 @@ add_dependencies(mypub ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TAR
 add_dependencies(filter_demo ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(recoder ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(newKey_demo ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-add_dependencies(writeCSV_demo ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+# add_dependencies(writeCSV_demo ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(serial_translator ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(mypub
@@ -173,11 +176,14 @@ target_link_libraries(recoder
   ${catkin_LIBRARIES}
   csv
 )
-target_link_libraries(writeCSV_demo
-  ${catkin_LIBRARIES}
-  csv
-)
+# target_link_libraries(writeCSV_demo
+#   ${catkin_LIBRARIES}
+#   csv
+# )
 target_link_libraries(newKey_demo
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(serial_translator
   ${catkin_LIBRARIES}
 )
 
@@ -194,7 +200,9 @@ target_link_libraries(newKey_demo
 #   scripts/my_python_script
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
-
+catkin_install_python(PROGRAMS scripts/recoder_py.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
 # install(TARGETS ${PROJECT_NAME}_node

@@ -33,7 +33,7 @@ void wrench_callback(const geometry_msgs::WrenchStampedConstPtr& msg)
     // 将子字符串放入向量中
     data.push_back(word);
     }
-    *writer << data ;
+    //*writer << data ;
     return;
 }
 
@@ -48,7 +48,7 @@ int main(int argc, char** argv)
     writer = new CSVWriter<ofstream>("/home/stonewu/Data/test.csv");
     // 向文件中添加一行表头
     auto header = std::vector<std::string>{"time", "fx", "fy", "fz", "tx","ty","tz","\n"};
-    *writer << header;
+    //*writer << header;
     ros::spin();
     delete writer;
     return 0;
